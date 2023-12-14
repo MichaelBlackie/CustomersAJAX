@@ -2,21 +2,15 @@
 @model Tuple<List<Customer>, Customer>
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    AjaxOptions ajaxOptions = new AjaxOptions
-    {
-        HttpMethod = "POST",
-        InsertionMode = InsertionMode.Replace,
-        UpdateTargetId = "customerInfo"
-    };
 }
 
-@using (Ajax.BeginForm("OnSelectCustomer", "Customer", ajaxOptions, new { id="customerForm" }))
+@using(Html.BeginForm("OnSelectCustomer", "Customer"))
 {
     @Html.AntiForgeryToken();
 
     var selected = false;
 
-    foreach (var customer in Model.Item1)
+    foreach(var customer in Model.Item1)
     {
         if (Model.Item2 == customer)
         {
@@ -27,12 +21,11 @@
             selected = false;
         }
 
-        @Html.RadioButton("CustomerNumber", customer.ID, selected, new { onchange = "$('#customerForm').trigger('submit')" } );
+        @Html.RadioButton("CustomerNumber", customer.ID, false);
         @Html.Label(customer.Name)
         <br />
     }
-    <!-- Not needed anymore -->
-    <!--<input type="submit" id="SubmitButton" value="Display Details" />-->
+    <input type="submit" id="SubmitButton" value="Display Details" />
 }
 
 <div id="customerInfo">
@@ -47,7 +40,7 @@
     <title>Customer</title>
 </head>
 <body>
-    <div>
+    <div> 
     </div>
 </body>
 </html>

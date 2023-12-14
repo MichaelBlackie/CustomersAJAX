@@ -31,9 +31,17 @@ namespace CustomersAJAX.Controllers
         public ActionResult Index()
         {
             Tuple<List<Customer>, Customer> tuple;
-            tuple = new Tuple<List<Customer>, Customer>(customers, customers[0]);
+            tuple = new Tuple<List<Customer>, Customer>(customers, customers[2]);
 
             return View("Customer", tuple);
+        }
+        [HttpPost]
+        public ActionResult OnSelectCustomer( string CustomerNumber)
+        {
+            Tuple<List<Customer>, Customer> tuple;
+            tuple = new Tuple<List<Customer>, Customer>(customers, customers[Int32.Parse(CustomerNumber)]);
+
+            return PartialView("_CustomerDetails", customers[Int32.Parse(CustomerNumber)]);
         }
     }
 }
